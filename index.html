@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joe Sandalo - Cantautore - Cantante Rock - Chitarrista</title>
+  <style>
+    /* STILI CSS PULITI E RESPONSIVE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+      background-image: url('../../../sfondonormal.jpg');
+      background-repeat: repeat;
+      color: #333;
+      padding: 10px;
+    }
+
+    .main-wrapper {
+      max-width: 832px;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    /* HEADER SUPERIORE */
+    .top-header {
+      background-color: #ff6666;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      gap: 15px;
+    }
+
+    @media (min-width: 768px) {
+      .top-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .widget-container iframe {
+      border: 0;
+      display: block;
+    }
+
+    .announcement {
+      color: #ffffff;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.05rem;
+      padding: 10px;
+    }
+
+    /* CONTENITORE PER HOME.HTM */
+    .content-container {
+      width: 100%;
+      background: #ffffff;
+    }
+
+    .content-container iframe {
+      width: 100%;
+      height: 900px; /* Altezza iniziale ottimizzata, con scorrimento interno */
+      border: 0;
+      display: block;
+    }
+
+    /* FOOTER CON IMMAGINE DENTI E SFONDO ROSSO */
+    .site-footer {
+      background-color: #ff6666;
+      text-align: center;
+    }
+
+    .site-footer img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-wrapper">
+    
+    <!-- INTESTAZIONE CON IL WIDGET REVERBNATION IN HTTP ORIGINALE -->
+    <header class="top-header">
+      <div class="widget-container">
+        <iframe class="widget_iframe" src="http://www.reverbnation.com/widget_code/html_widget/artist_46771?widget_id=50&posted_by=artist_46771&pwc[design]=customized&pwc[background_color]=%23ff6666&pwc[included_songs]=1&pwc[photo]=0&pwc[size]=custom" width="313" height="140" frameborder="0" scrolling="no"></iframe>
+      </div>
+      <div class="announcement">
+        Cerca su YouTube i nuovi album:<br>Italiota, Compatriota e Iscariota
+      </div>
+    </header>
+
+    <!-- CONTENUTO CENTRALE (home.htm incorporato in modo stabile) -->
+    <main class="content-container">
+      <iframe src="home.htm" name="homeFrame" title="Contenuti principali di Joe Sandalo"></iframe>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <img src="http://josephmetal.altervista.org/denti.gif" alt="Joe Sandalo Footer" width="832" height="118">
+    </footer>
+
+  </div>
+
+  <!-- Script di Analytics -->
+  <script src="https://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    try {
+      _uacct = "UA-7699831-1";[cite: 2]
+      urchinTracker();
+    } catch(err) {}
+  </script>
+
+</body>
+</html>
