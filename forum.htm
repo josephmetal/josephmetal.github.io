@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joe Sandalo - Official Forum</title>
+  <script language="JavaScript" type="text/JavaScript">
+  <!--
+  function MM_preloadImages() { //v3.0
+    var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+      var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+      if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+  }
+
+  function MM_swapImgRestore() { //v3.0
+    var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+  }
+
+  function MM_findObj(n, d) { //v4.01
+    var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+      d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+    if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+    for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+    if(!x && d.getElementById) x=d.getElementById(n); return x;
+  }
+
+  function MM_swapImage() { //v3.0
+    var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+     if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+  }
+  //-->
+  </script>
+  <style>
+    /* RESET & BASE STYLES COERENTI CON HOME.HTM */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* CONTAINER PRINCIPALE */
+    .page-container {
+      max-width: 960px;
+      margin: 20px auto;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .page-container {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    /* BARRA DI NAVIGAZIONE LATERALE */
+    .sidebar {
+      width: 100%;
+      background: #e6e6e6 url('sfondomenu2.jpg') no-repeat center top;
+      padding: 0;
+      border-bottom: 2px solid #CC6666;
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .sidebar {
+        width: 160px;
+        flex-shrink: 0;
+        border-bottom: none;
+        border-right: 1px solid #ddd;
+        min-height: 500px;
+        justify-content: flex-start;
+      }
+    }
+
+    .menu-table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin: 0 auto;
+    }
+
+    .menu-table td {
+      padding: 0;
+      margin: 0;
+      line-height: 0;
+      font-size: 0;
+    }
+
+    .menu-table img {
+      display: block;
+      border: 0;
+    }
+
+    /* CONTENUTO PRINCIPALE FORUM */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    /* HEADER E BREADCRUMB FORUM */
+    .forum-header {
+      border-bottom: 2px solid #ff6666;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .forum-header h1 {
+      color: #ff6666;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .breadcrumb a {
+      color: #ff6666;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* BOTTONI AZIONE FORUM */
+    .btn-action {
+      background-color: #ff6666;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      display: inline-block;
+    }
+
+    .btn-action:hover {
+      background-color: #e55555;
+    }
+
+    .btn-secondary {
+      background-color: #888;
+      margin-right: 8px;
+    }
+
+    .btn-secondary:hover {
+      background-color: #666;
+    }
+
+    /* TABELLE E LISTE DEL FORUM */
+    .forum-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .forum-table th {
+      background-color: #fff5f5;
+      color: #ff6666;
+      border: 1px solid #ffcccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .forum-table td {
+      border: 1px solid #e0e0e0;
+      padding: 12px 10px;
+      vertical-align: middle;
+    }
+
+    .forum-table tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .forum-table tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .cat-icon {
+      width: 36px;
+      height: 36px;
+      background: #ff6666;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .cat-title {
+      font-weight: bold;
+      color: #222;
+      font-size: 1rem;
+      text-decoration: none;
+      display: block;
+    }
+
+    .cat-title:hover {
+      color: #ff6666;
+    }
+
+    .cat-desc {
+      color: #666;
+      font-size: 0.82rem;
+      margin-top: 3px;
+    }
+
+    .topic-author {
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .last-post-info {
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    /* VISTA DISCUSSIONE / POST */
+    .topic-post {
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .post-header {
+      background: #fff5f5;
+      border-bottom: 1px solid #ffcccc;
+      padding: 8px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .post-author {
+      font-weight: bold;
+      color: #ff6666;
+    }
+
+    .post-date {
+      color: #888;
+    }
+
+    .post-body {
+      padding: 15px;
+      font-size: 0.95rem;
+      color: #333;
+      white-space: pre-line;
+      background: #fff;
+    }
+
+    /* MODULI DI INSERIMENTO (FORM) */
+    .form-card {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .form-card h3 {
+      color: #ff6666;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 4px;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #ff6666;
+      box-shadow: 0 0 4px rgba(255, 102, 102, 0.4);
+    }
+
+    /* MESSAGGIO DI NOTIFICA */
+    .toast-msg {
+      padding: 10px 15px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      display: none;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body onLoad="MM_preloadImages('../../rollbottoneforum.jpg','../../rollbottonemp3.jpg','../../rollbottoneimmagini.jpg','../../liveroll.jpg','../../studioroll.jpg','../../rollbottoneprogetti.jpg','../../archivioroll.jpg','../../rollbottonelinks.jpg','../../../../../rollBOTTONEHOME.jpg','../../rollbottonebiografia.jpg','../../videoroll.jpg','../../rollbottoneguestbook.jpg','../../rollbottoneopus.jpg','../../myspaceroll.jpg')">
+
+  <div class="page-container">
+    
+    <!-- BARRA DI NAVIGAZIONE LATERALE CON BOTTONI ADIACCENTI -->
+    <nav class="sidebar" aria-label="Menu di navigazione principale">
+      <div align="center" style="width: 100%;"> 
+        <table width="126" border="0" cellspacing="0" cellpadding="0" class="menu-table">
+          <tr><td><a href="forum.htm" onMouseOver="MM_swapImage('forum1111','','../../rollbottoneforum.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="../../bottoneforum.jpg" name="forum1111" width="126" height="19" border="0" id="forum1"></a></td></tr>
+          <tr><td><a href="guestbook.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('guest','','../../rollbottoneguestbook.jpg',1)"><img src="../../bottoneguestbook.jpg" name="guest" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><img src="../../bottonevuoto.jpg" width="126" height="9"></td></tr>
+          <tr><td><a href="home.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('home','','../../../../../rollBOTTONEHOME.jpg',1)"><img src="../../home.jpg" name="home" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><a href="https://itunes.apple.com/us/album/opus-1/id264942587" target="_blank" onMouseOver="MM_swapImage('mp3101','','../../rollbottonemp3.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="../../bottonemp3.jpg" name="mp3101" width="126" height="18" border="0" id="mp310"></a></td></tr>
+          <tr><td><a href="myspace.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('myspa','','../../myspaceroll.jpg',1)"><img src="../../myspace.jpg" name="myspa" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><a href="opus.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('opus','','../../rollbottoneopus.jpg',1)"><img src="../../bottoneopus.jpg" name="opus" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><a href="https://www.youtube.com/user/VanPortogal/videos" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('video11','','../../videoroll.jpg',1)"><img src="../../video.jpg" name="video11" width="126" height="18" border="0" id="video1"></a></td></tr>
+          <tr><td><a href="biografia.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('biografia1101','','../../rollbottonebiografia.jpg',1)"><img src="../../bottonebiografia.jpg" name="biografia1101" width="126" height="18" border="0" id="biografia1"></a></td></tr>
+          <tr><td><a href="immagini.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('immagini1101','','../../rollbottoneimmagini.jpg',1)"><img src="../../bottoneimmagini.jpg" name="immagini1101" width="126" height="18" border="0" id="immagini1"></a></td></tr>
+          <tr><td><a href="live.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('liveita1','','../../liveroll.jpg',1)"><img src="../../live.jpg" name="liveita1" width="126" height="18" border="0" id="liveita1"></a></td></tr>
+          <tr><td><a href="studio.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('studioita1','','../../studioroll.jpg',1)"><img src="../../studio.jpg" name="studioita1" width="126" height="18" border="0" id="studioita1"></a></td></tr>
+          <tr><td><a href="progetti.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('progetti1101','','../../rollbottoneprogetti.jpg',1)"><img src="../../bottoneprogetti.jpg" name="progetti1101" width="126" height="18" border="0" id="progetti1"></a></td></tr>
+          <tr><td><a href="archivio.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('archivio1','','../../archivioroll.jpg',1)"><img src="../../archivio.jpg" name="archivio1" width="126" height="18" border="0" id="archivio1"></a></td></tr>
+          <tr><td><a href="links.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('links11121','','../../rollbottonelinks.jpg',1)"><img src="../../bottonelinks.jpg" name="links11121" width="126" height="18" border="0" id="links1"></a></td></tr>
+          <tr>
+  <td>
+    <a href="javascript:void(0);" onclick="translateToEnglish()">
+      <img src="../../english.gif" width="126" height="36" border="0" alt="Translate to English">
+    </a>
+  </td>
+</tr>
+        </table>
+      </div>
+    </nav>
+
+    <!-- AREA DI CONTENUTO PRINCIPALE FORUM -->
+    <main class="main-content">
+      
+      <div id="toast" class="toast-msg"></div>
+
+      <!-- INTESTAZIONE E BREADCRUMB -->
+      <div class="forum-header">
+        <h1>Joe Sandalo Forum</h1>
+        <div id="actionButtonContainer"></div>
+      </div>
+      
+      <div class="breadcrumb" id="breadcrumbNav">
+        <a href="javascript:void(0)" onclick="showCategoryList()">Forum Home</a>
+      </div>
+
+      <!-- VISTA DINAMICA DEL FORUM (GENERATA IN JS) -->
+      <div id="forumView"></div>
+
+    </main>
+
+  </div>
+
+  <script>
+    // DATA STORE FORUM IN MEMORIA (INIZIALIZZATO CON DATI MOCK)
+    const forumData = {
+      categories: [
+        {
+          id: 'cat-gen',
+          title: 'Generale & Benvenuti',
+          description: 'Discussioni generali su Joe Sandalo, annunci ufficiali e presentazioni nuovi utenti.',
+          icon: '💬',
+          topics: [
+            {
+              id: 'top-1',
+              title: 'Benvenuti nel nuovo Forum ufficiale di Joe Sandalo!',
+              author: 'JoeSandalo_Admin',
+              date: '2024-03-01 12:30',
+              posts: [
+                {
+                  author: 'JoeSandalo_Admin',
+                  date: '2024-03-01 12:30',
+                  content: 'Ciao a tutti i fan e appassionati! Benvenuti nel nostro nuovo forum ufficiale. Qui potete discutere della musica, dei video e di tutte le novità riguardanti i miei progetti. Buona permanenza!'
+                },
+                {
+                  author: 'MetalHead99',
+                  date: '2024-03-01 14:15',
+                  content: 'Grande Joe! Grandissima idea riaprire la community! Un saluto a tutti!'
+                }
+              ]
+            },
+            {
+              id: 'top-2',
+              title: 'Presentazioni nuovi membri',
+              author: 'GuitarHero_88',
+              date: '2024-03-02 09:40',
+              posts: [
+                {
+                  author: 'GuitarHero_88',
+                  date: '2024-03-02 09:40',
+                  content: 'Un saluto a tutto il forum! Vi seguo da parecchio su YouTube, felice di far parte di questa community.'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'cat-music',
+          title: 'Musica & Opus 1',
+          description: 'Commenti sull album Opus 1, recensioni dei brani, strumentazione e setup chitarre.',
+          icon: '🎸',
+          topics: [
+            {
+              id: 'top-3',
+              title: 'Opinioni e recensioni su OPUS 1',
+              author: 'ShredKing',
+              date: '2024-03-03 18:20',
+              posts: [
+                {
+                  author: 'ShredKing',
+                  date: '2024-03-03 18:20',
+                  content: 'Ho appena riscaricato Opus 1 da Mediafire. Che dire, una bomba! Qual è la vostra traccia preferita dell album?'
+                },
+                {
+                  author: 'RockFanatic',
+                  date: '2024-03-03 20:05',
+                  content: 'Gli assoli sono fantastici, tecnica incredibile ed esecuzione al top!'
+                }
+              ]
+            },
+            {
+              id: 'top-4',
+              title: 'Che strumentazione usa Joe per le registrazioni?',
+              author: 'GearHead',
+              date: '2024-03-04 11:10',
+              posts: [
+                {
+                  author: 'GearHead',
+                  date: '2024-03-04 11:10',
+                  content: 'Qualcuno sa quali amplificatori o effetti ha usato Joe nelle registrazioni in studio?'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'cat-video',
+          title: 'Video & Cover',
+          description: 'Discussioni sui video YouTube, in particolare Damage Inc. (Metallica cover) e sessioni live.',
+          icon: '🎬',
+          topics: [
+            {
+              id: 'top-5',
+              title: 'Damage, Inc. (Metallica cover) - Discussione Ufficiale',
+              author: 'ThrashMaster',
+              date: '2024-03-04 16:45',
+              posts: [
+                {
+                  author: 'ThrashMaster',
+                  date: '2024-03-04 16:45',
+                  content: 'Il video della cover di Damage, Inc. su YouTube è qualcosa di pazzesco. Il ritmo e il suono della chitarra sono identici all originale!'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'cat-offtopic',
+          title: 'Off-Topic & Chiacchiere',
+          description: 'Spazio libero per parlare di qualsiasi altro argomento non strettamente legato alla musica.',
+          icon: '☕',
+          topics: [
+            {
+              id: 'top-6',
+              title: 'Consigli per ascolti Heavy Metal vintage',
+              author: 'ClassicRocker',
+              date: '2024-03-05 10:00',
+              posts: [
+                {
+                  author: 'ClassicRocker',
+                  date: '2024-03-05 10:00',
+                  content: 'Quali album anni 80/90 mi consigliate di riascoltare questa settimana?'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    // STATO CORRENTE DEL VISTO (navigation state)
+    let currentCatId = null;
+    let currentTopicId = null;
+
+    // MOSTRA MESSAGGIO TOAST
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.innerText = text;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+
+    // UTILS FORMATTAZIONE DATA ORA
+    function getCurrentDateTime() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const hh = String(now.getHours()).padStart(2, '0');
+      const min = String(now.getMinutes()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+    }
+
+    // RENDERING VISTA 1: ELENCO CATEGORIE (HOME FORUM)
+    function showCategoryList() {
+      currentCatId = null;
+      currentTopicId = null;
+
+      // Update Breadcrumb
+      document.getElementById('breadcrumbNav').innerHTML = `<span>Forum Home</span>`;
+      document.getElementById('actionButtonContainer').innerHTML = '';
+
+      let html = `
+        <table class="forum-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;"></th>
+              <th>Sezione / Categoria</th>
+              <th style="width: 100px; text-align: center;">Discussioni</th>
+              <th style="width: 180px;">Ultimo Messaggio</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      forumData.categories.forEach(cat => {
+        const topicCount = cat.topics.length;
+        let lastPostText = 'Nessun messaggio';
+
+        if (topicCount > 0) {
+          const lastTopic = cat.topics[cat.topics.length - 1];
+          const lastPost = lastTopic.posts[lastTopic.posts.length - 1];
+          lastPostText = `<div><strong>${escapeHtml(lastTopic.title.substring(0, 20))}...</strong></div>
+                          <div class="topic-author">da ${escapeHtml(lastPost.author)} il ${lastPost.date}</div>`;
+        }
+
+        html += `
+          <tr>
+            <td style="text-align: center;"><div class="cat-icon">${cat.icon}</div></td>
+            <td>
+              <a href="javascript:void(0)" class="cat-title" onclick="showTopicList('${cat.id}')">${escapeHtml(cat.title)}</a>
+              <div class="cat-desc">${escapeHtml(cat.description)}</div>
+            </td>
+            <td style="text-align: center; font-weight: bold; color: #ff6666;">${topicCount}</td>
+            <td><div class="last-post-info">${lastPostText}</div></td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      document.getElementById('forumView').innerHTML = html;
+    }
+
+    // RENDERING VISTA 2: LISTA DISCUSSIONS IN UNA CATEGORIA
+    function showTopicList(catId) {
+      currentCatId = catId;
+      currentTopicId = null;
+
+      const category = forumData.categories.find(c => c.id === catId);
+      if (!category) return;
+
+      // Update Breadcrumb
+      document.getElementById('breadcrumbNav').innerHTML = `
+        <a href="javascript:void(0)" onclick="showCategoryList()">Forum Home</a> &gt; 
+        <span>${escapeHtml(category.title)}</span>
+      `;
+
+      // Botton per nuovo argomento
+      document.getElementById('actionButtonContainer').innerHTML = `
+        <button class="btn-action" onclick="showNewTopicForm()">+ Nuovo Argomento</button>
+      `;
+
+      let html = `
+        <table class="forum-table">
+          <thead>
+            <tr>
+              <th>Titolo Discussione</th>
+              <th style="width: 120px;">Autore</th>
+              <th style="width: 80px; text-align: center;">Risposte</th>
+              <th style="width: 160px;">Ultimo Intervento</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      if (category.topics.length === 0) {
+        html += `<tr><td colspan="4" style="text-align:center; padding: 20px; color:#777;">Ancora nessuna discussione aperta in questa sezione. Creane una tu!</td></tr>`;
+      } else {
+        category.topics.forEach(topic => {
+          const replyCount = topic.posts.length - 1;
+          const lastPost = topic.posts[topic.posts.length - 1];
+
+          html += `
+            <tr>
+              <td>
+                <a href="javascript:void(0)" class="cat-title" onclick="showTopicDetail('${catId}', '${topic.id}')">${escapeHtml(topic.title)}</a>
+                <div class="topic-author">Aperto il ${topic.date}</div>
+              </td>
+              <td><span class="topic-author">${escapeHtml(topic.author)}</span></td>
+              <td style="text-align: center; font-weight: bold;">${replyCount}</td>
+              <td>
+                <div class="last-post-info">
+                  da <strong>${escapeHtml(lastPost.author)}</strong><br>${lastPost.date}
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      html += `</tbody></table>`;
+      document.getElementById('forumView').innerHTML = html;
+    }
+
+    // RENDERING VISTA 3: DETTAGLIO DISCUSSIONE E POSTS
+    function showTopicDetail(catId, topicId) {
+      currentCatId = catId;
+      currentTopicId = topicId;
+
+      const category = forumData.categories.find(c => c.id === catId);
+      if (!category) return;
+      const topic = category.topics.find(t => t.id === topicId);
+      if (!topic) return;
+
+      // Update Breadcrumb
+      document.getElementById('breadcrumbNav').innerHTML = `
+        <a href="javascript:void(0)" onclick="showCategoryList()">Forum Home</a> &gt; 
+        <a href="javascript:void(0)" onclick="showTopicList('${catId}')">${escapeHtml(category.title)}</a> &gt; 
+        <span>${escapeHtml(topic.title)}</span>
+      `;
+
+      document.getElementById('actionButtonContainer').innerHTML = `
+        <button class="btn-action btn-secondary" onclick="showTopicList('${catId}')">&laquo; Torna alla lista</button>
+      `;
+
+      let html = `<h2 style="color:#ff6666; font-size: 1.25rem; margin-bottom: 15px;">${escapeHtml(topic.title)}</h2>`;
+
+      // Render di tutti i post
+      topic.posts.forEach((post, index) => {
+        html += `
+          <div class="topic-post">
+            <div class="post-header">
+              <span class="post-author">#${index + 1} ${escapeHtml(post.author)}</span>
+              <span class="post-date">${post.date}</span>
+            </div>
+            <div class="post-body">${escapeHtml(post.content)}</div>
+          </div>
+        `;
+      });
+
+      // Form per inserire una nuova risposta
+      html += `
+        <div class="form-card">
+          <h3>Rispondi a questa discussione</h3>
+          <form onsubmit="handleNewReply(event)">
+            <div class="form-group">
+              <label for="replyAuthor">Il tuo Nome / Nickname:</label>
+              <input type="text" id="replyAuthor" required placeholder="Inserisci il tuo nome">
+            </div>
+            <div class="form-group">
+              <label for="replyContent">Messaggio:</label>
+              <textarea id="replyContent" rows="4" required placeholder="Scrivi la tua risposta..."></textarea>
+            </div>
+            <button type="submit" class="btn-action">Invia Risposta</button>
+          </form>
+        </div>
+      `;
+
+      document.getElementById('forumView').innerHTML = html;
+    }
+
+    // FORM NUOVO ARGOMENTO
+    function showNewTopicForm() {
+      const category = forumData.categories.find(c => c.id === currentCatId);
+      if (!category) return;
+
+      document.getElementById('breadcrumbNav').innerHTML = `
+        <a href="javascript:void(0)" onclick="showCategoryList()">Forum Home</a> &gt; 
+        <a href="javascript:void(0)" onclick="showTopicList('${currentCatId}')">${escapeHtml(category.title)}</a> &gt; 
+        <span>Nuova Discussione</span>
+      `;
+
+      document.getElementById('actionButtonContainer').innerHTML = `
+        <button class="btn-action btn-secondary" onclick="showTopicList('${currentCatId}')">Annulla</button>
+      `;
+
+      let html = `
+        <div class="form-card" style="margin-top:0;">
+          <h3>Crea un nuovo argomento in: ${escapeHtml(category.title)}</h3>
+          <form onsubmit="handleNewTopic(event)">
+            <div class="form-group">
+              <label for="topicTitle">Titolo dell'argomento:</label>
+              <input type="text" id="topicTitle" required placeholder="Inserisci un titolo chiaro e descrittivo">
+            </div>
+            <div class="form-group">
+              <label for="topicAuthor">Il tuo Nome / Nickname:</label>
+              <input type="text" id="topicAuthor" required placeholder="Inserisci il tuo nome">
+            </div>
+            <div class="form-group">
+              <label for="topicContent">Messaggio iniziale:</label>
+              <textarea id="topicContent" rows="6" required placeholder="Scrivi il contenuto della discussione..."></textarea>
+            </div>
+            <button type="submit" class="btn-action">Pubblica Discussione</button>
+          </form>
+        </div>
+      `;
+
+      document.getElementById('forumView').innerHTML = html;
+    }
+
+    // HANDLER CREAZIONE NUOVA DISCUSSIONE
+    function handleNewTopic(e) {
+      e.preventDefault();
+      const title = document.getElementById('topicTitle').value.trim();
+      const author = document.getElementById('topicAuthor').value.trim();
+      const content = document.getElementById('topicContent').value.trim();
+
+      if (!title || !author || !content) return;
+
+      const category = forumData.categories.find(c => c.id === currentCatId);
+      if (!category) return;
+
+      const newTopicId = 'top-' + Date.now();
+      const newTopic = {
+        id: newTopicId,
+        title: title,
+        author: author,
+        date: getCurrentDateTime(),
+        posts: [
+          {
+            author: author,
+            date: getCurrentDateTime(),
+            content: content
+          }
+        ]
+      };
+
+      category.topics.unshift(newTopic); // Aggiunge in testa
+      showToast('Nuovo argomento creato con successo!');
+      showTopicDetail(currentCatId, newTopicId);
+    }
+
+    // HANDLER CREAZIONE NUOVA RISPOSTA
+    function handleNewReply(e) {
+      e.preventDefault();
+      const author = document.getElementById('replyAuthor').value.trim();
+      const content = document.getElementById('replyContent').value.trim();
+
+      if (!author || !content) return;
+
+      const category = forumData.categories.find(c => c.id === currentCatId);
+      if (!category) return;
+      const topic = category.topics.find(t => t.id === currentTopicId);
+      if (!topic) return;
+
+      topic.posts.push({
+        author: author,
+        date: getCurrentDateTime(),
+        content: content
+      });
+
+      showToast('Risposta inviata con successo!');
+      showTopicDetail(currentCatId, currentTopicId);
+    }
+
+    // UTILITÀ PER ESCAPE HTML PER PREVENIRE XSS
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // CARICAMENTO INIZIALE
+    window.onload = function() {
+      showCategoryList();
+    };
+  </script>
+<!-- Widget di Traduzione Google (Nascosto) -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'it',
+      includedLanguages: 'en',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function translateToEnglish() {
+    // Carica dinamicamente lo script di Google Translate al click se non è già presente
+    if (!document.getElementById('google-translate-script')) {
+      var script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.type = 'text/javascript';
+      script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      document.body.appendChild(script);
+      
+      // Attende il caricamento ed esegue il cambio di lingua
+      var checkInterval = setInterval(function() {
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+          select.value = 'en';
+          select.dispatchEvent(new Event('change'));
+          clearInterval(checkInterval);
+        }
+      }, 300);
+    } else {
+      var select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = 'en';
+        select.dispatchEvent(new Event('change'));
+      }
+    }
+  }
+</script></body>
+</html>

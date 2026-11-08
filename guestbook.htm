@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joe Sandalo - Guestbook (Libro degli Ospiti)</title>
+  <script language="JavaScript" type="text/JavaScript">
+  <!--
+  function MM_preloadImages() { //v3.0
+    var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+      var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+      if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+  }
+
+  function MM_swapImgRestore() { //v3.0
+    var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+  }
+
+  function MM_findObj(n, d) { //v4.01
+    var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+      d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+    if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+    for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+    if(!x && d.getElementById) x=d.getElementById(n); return x;
+  }
+
+  function MM_swapImage() { //v3.0
+    var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+     if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+  }
+  //-->
+  </script>
+  <style>
+    /* RESET & BASE STYLES COERENTI CON HOME E FORUM */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* CONTAINER PRINCIPALE */
+    .page-container {
+      max-width: 960px;
+      margin: 20px auto;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .page-container {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    /* BARRA DI NAVIGAZIONE LATERALE */
+    .sidebar {
+      width: 100%;
+      background: #e6e6e6 url('sfondomenu2.jpg') no-repeat center top;
+      padding: 0;
+      border-bottom: 2px solid #CC6666;
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .sidebar {
+        width: 160px;
+        flex-shrink: 0;
+        border-bottom: none;
+        border-right: 1px solid #ddd;
+        min-height: 500px;
+        justify-content: flex-start;
+      }
+    }
+
+    .menu-table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin: 0 auto;
+    }
+
+    .menu-table td {
+      padding: 0;
+      margin: 0;
+      line-height: 0;
+      font-size: 0;
+    }
+
+    .menu-table img {
+      display: block;
+      border: 0;
+    }
+
+    /* CONTENUTO PRINCIPALE GUESTBOOK */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .guestbook-header {
+      border-bottom: 2px solid #ff6666;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .guestbook-header h1 {
+      color: #ff6666;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .guestbook-stats {
+      font-size: 0.85rem;
+      background: #fff5f5;
+      color: #ff6666;
+      border: 1px solid #ffcccc;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    /* TOAST NOTIFICA */
+    .toast-msg {
+      padding: 10px 15px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      display: none;
+      font-size: 0.88rem;
+    }
+
+    /* SCHEDA FORM */
+    .form-card {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 18px;
+      margin-bottom: 25px;
+    }
+
+    .form-card h2 {
+      color: #ff6666;
+      font-size: 1.15rem;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .form-group-full {
+        grid-column: span 2;
+      }
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 4px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="url"],
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #ff6666;
+      box-shadow: 0 0 4px rgba(255, 102, 102, 0.4);
+    }
+
+    .btn-submit {
+      background-color: #ff6666;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background-color: #e55555;
+    }
+
+    /* STILI LISTA MESSAGGI DEL GUESTBOOK */
+    .entries-title {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 15px;
+      border-left: 4px solid #ff6666;
+      padding-left: 8px;
+    }
+
+    .entry-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      overflow: hidden;
+    }
+
+    .entry-header {
+      background: #fff5f5;
+      border-bottom: 1px solid #ffcccc;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .entry-author {
+      font-weight: bold;
+      color: #ff6666;
+      font-size: 0.95rem;
+    }
+
+    .entry-meta {
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    .entry-meta span {
+      margin-left: 10px;
+    }
+
+    .entry-body {
+      padding: 15px;
+      font-size: 0.92rem;
+      color: #333;
+      white-space: pre-line;
+      line-height: 1.5;
+    }
+
+    .entry-footer {
+      background: #fafafa;
+      border-top: 1px solid #f0f0f0;
+      padding: 6px 15px;
+      font-size: 0.8rem;
+      color: #666;
+      display: flex;
+      gap: 15px;
+    }
+
+    .entry-footer a {
+      color: #ff6666;
+      text-decoration: none;
+    }
+
+    .entry-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .no-entries {
+      text-align: center;
+      padding: 30px;
+      color: #888;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body onLoad="MM_preloadImages('../../rollbottoneforum.jpg','../../rollbottonemp3.jpg','../../rollbottoneimmagini.jpg','../../liveroll.jpg','../../studioroll.jpg','../../rollbottoneprogetti.jpg','../../archivioroll.jpg','../../rollbottonelinks.jpg','../../../../../rollBOTTONEHOME.jpg','../../rollbottonebiografia.jpg','../../videoroll.jpg','../../rollbottoneguestbook.jpg','../../rollbottoneopus.jpg','../../myspaceroll.jpg')">
+
+  <div class="page-container">
+    
+    <!-- BARRA DI NAVIGAZIONE LATERALE CON BOTTONI ADIACCENTI -->
+    <nav class="sidebar" aria-label="Menu di navigazione principale">
+      <div align="center" style="width: 100%;"> 
+        <table width="126" border="0" cellspacing="0" cellpadding="0" class="menu-table">
+          <tr><td><a href="forum.htm" onMouseOver="MM_swapImage('forum1111','','../../rollbottoneforum.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="../../bottoneforum.jpg" name="forum1111" width="126" height="19" border="0" id="forum1"></a></td></tr>
+          <tr><td><a href="guestbook.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('guest','','../../rollbottoneguestbook.jpg',1)"><img src="../../bottoneguestbook.jpg" name="guest" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><img src="../../bottonevuoto.jpg" width="126" height="9"></td></tr>
+          <tr><td><a href="home.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('home','','../../../../../rollBOTTONEHOME.jpg',1)"><img src="../../home.jpg" name="home" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><a href="https://itunes.apple.com/us/album/opus-1/id264942587" target="_blank" onMouseOver="MM_swapImage('mp3101','','../../rollbottonemp3.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="../../bottonemp3.jpg" name="mp3101" width="126" height="18" border="0" id="mp310"></a></td></tr>
+          <tr><td><a href="myspace.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('myspa','','../../myspaceroll.jpg',1)"><img src="../../myspace.jpg" name="myspa" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><a href="opus.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('opus','','../../rollbottoneopus.jpg',1)"><img src="../../bottoneopus.jpg" name="opus" width="126" height="18" border="0"></a></td></tr>
+          <tr><td><a href="https://www.youtube.com/user/VanPortogal/videos" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('video11','','../../videoroll.jpg',1)"><img src="../../video.jpg" name="video11" width="126" height="18" border="0" id="video1"></a></td></tr>
+          <tr><td><a href="biografia.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('biografia1101','','../../rollbottonebiografia.jpg',1)"><img src="../../bottonebiografia.jpg" name="biografia1101" width="126" height="18" border="0" id="biografia1"></a></td></tr>
+          <tr><td><a href="immagini.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('immagini1101','','../../rollbottoneimmagini.jpg',1)"><img src="../../bottoneimmagini.jpg" name="immagini1101" width="126" height="18" border="0" id="immagini1"></a></td></tr>
+          <tr><td><a href="live.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('liveita1','','../../liveroll.jpg',1)"><img src="../../live.jpg" name="liveita1" width="126" height="18" border="0" id="liveita1"></a></td></tr>
+          <tr><td><a href="studio.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('studioita1','','../../studioroll.jpg',1)"><img src="../../studio.jpg" name="studioita1" width="126" height="18" border="0" id="studioita1"></a></td></tr>
+          <tr><td><a href="progetti.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('progetti1101','','../../rollbottoneprogetti.jpg',1)"><img src="../../bottoneprogetti.jpg" name="progetti1101" width="126" height="18" border="0" id="progetti1"></a></td></tr>
+          <tr><td><a href="archivio.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('archivio1','','../../archivioroll.jpg',1)"><img src="../../archivio.jpg" name="archivio1" width="126" height="18" border="0" id="archivio1"></a></td></tr>
+          <tr><td><a href="links.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('links11121','','../../rollbottonelinks.jpg',1)"><img src="../../bottonelinks.jpg" name="links11121" width="126" height="18" border="0" id="links1"></a></td></tr>
+          <tr>
+  <td>
+    <a href="javascript:void(0);" onclick="translateToEnglish()">
+      <img src="../../english.gif" width="126" height="36" border="0" alt="Translate to English">
+    </a>
+  </td>
+</tr>
+        </table>
+      </div>
+    </nav>
+
+    <!-- AREA DI CONTENUTO PRINCIPALE GUESTBOOK -->
+    <main class="main-content">
+      
+      <div id="toast" class="toast-msg"></div>
+
+      <!-- INTESTAZIONE GUESTBOOK -->
+      <div class="guestbook-header">
+        <h1>Libro degli Ospiti</h1>
+        <div class="guestbook-stats" id="totalCounter">Messaggi totali: 0</div>
+      </div>
+
+      <!-- FORM PER LASSIARE UN MESSAGGIO -->
+      <section class="form-card">
+        <h2>Firma il Guestbook!</h2>
+        <form id="guestbookForm" onsubmit="handleFormSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="gbName">Nome / Nickname *</label>
+              <input type="text" id="gbName" required placeholder="Es. Marco89">
+            </div>
+
+            <div class="form-group">
+              <label for="gbCity">Città / Provenienza</label>
+              <input type="text" id="gbCity" placeholder="Es. Milano, Italia">
+            </div>
+
+            <div class="form-group">
+              <label for="gbEmail">Email (opzionale)</label>
+              <input type="email" id="gbEmail" placeholder="tuaemail@esempio.it">
+            </div>
+
+            <div class="form-group">
+              <label for="gbWebsite">Sito Web / Canale YouTube</label>
+              <input type="url" id="gbWebsite" placeholder="https://youtube.com/@il-tuo-canale">
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="gbMessage">Messaggio *</label>
+              <textarea id="gbMessage" rows="4" required placeholder="Lascia un saluto, un commento sui brani o un suggerimento per i prossimi video!"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">Firma Libro degli Ospiti</button>
+        </form>
+      </section>
+
+      <!-- SEZIONE MESSAGGI PUBBLICATI -->
+      <section>
+        <h3 class="entries-title">Messaggi degli Ospiti</h3>
+        <div id="entriesList"></div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script>
+    // DATI INIZIALI PRE-POPOLATI DEL GUESTBOOK
+    const guestbookEntries = [
+      {
+        id: 1,
+        name: "Rocker_85",
+        city: "Bologna",
+        email: "rocker85@metalmail.it",
+        website: "",
+        date: "2024-03-05 17:40",
+        message: "Ciao Joe! Ho appena scaricato Opus 1 da Mediafire e lo sto riascoltando a tutto volume in macchina. La traccia dei chitarroni è una bomba atomica! Continua così!"
+      },
+      {
+        id: 2,
+        name: "Elena G.",
+        city: "Torino",
+        email: "",
+        website: "https://youtube.com",
+        date: "2024-03-04 11:15",
+        message: "Complimenti fantastica la cover dei Metallica (Damage, Inc.) su YouTube! La precisione nel picking a quella velocità è incredibile. Fai una cover dei Megadeth prossimamente?"
+      },
+      {
+        id: 3,
+        name: "Shredder_Joe_Fan",
+        city: "Roma",
+        email: "shredder@guitar.com",
+        website: "",
+        date: "2024-03-02 21:05",
+        message: "Passavo di qua a lasciare un saluto. Seguo il sito da un bel po' e apprezzo sempre i tuoi lavori e le registrazioni nello studio. Un grande abbraccio!"
+      },
+      {
+        id: 4,
+        name: "Luca M.",
+        city: "Verona",
+        email: "",
+        website: "",
+        date: "2024-02-28 14:30",
+        message: "Grande Joe! Saluti da Verona! Quando ci sarà il prossimo concerto o sessione Live?"
+      }
+    ];
+
+    // FORMATTATIONE DATA ORA ATTUALE
+    function getCurrentDateTime() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const hh = String(now.getHours()).padStart(2, '0');
+      const min = String(now.getMinutes()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+    }
+
+    // MOSTRA NOTIFICA DI CONFERMA (TOAST)
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.innerText = text;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+
+    // RENDERING LISTA MESSAGGI E CONTATORE
+    function renderEntries() {
+      const container = document.getElementById('entriesList');
+      const counter = document.getElementById('totalCounter');
+      
+      counter.innerText = `Messaggi totali: ${guestbookEntries.length}`;
+
+      if (guestbookEntries.length === 0) {
+        container.innerHTML = `<div class="no-entries">Ancora nessun messaggio presente. Sii il primo a firmare il libro degli ospiti!</div>`;
+        return;
+      }
+
+      let html = '';
+      guestbookEntries.forEach(entry => {
+        html += `
+          <div class="entry-card">
+            <div class="entry-header">
+              <div class="entry-author">✍️ ${escapeHtml(entry.name)}</div>
+              <div class="entry-meta">
+                ${entry.city ? `<span>📍 ${escapeHtml(entry.city)}</span>` : ''}
+                <span>📅 ${entry.date}</span>
+              </div>
+            </div>
+            <div class="entry-body">${escapeHtml(entry.message)}</div>
+            ${(entry.website || entry.email) ? `
+              <div class="entry-footer">
+                ${entry.website ? `<a href="${escapeHtml(entry.website)}" target="_blank" rel="noopener">🌐 Visita il sito/canale</a>` : ''}
+                ${entry.email ? `<span>✉️ Email fornita</span>` : ''}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // GESTIONE INVIO DEL FORM
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('gbName').value.trim();
+      const city = document.getElementById('gbCity').value.trim();
+      const email = document.getElementById('gbEmail').value.trim();
+      const website = document.getElementById('gbWebsite').value.trim();
+      const message = document.getElementById('gbMessage').value.trim();
+
+      if (!name || !message) return;
+
+      const newEntry = {
+        id: Date.now(),
+        name: name,
+        city: city,
+        email: email,
+        website: website,
+        date: getCurrentDateTime(),
+        message: message
+      };
+
+      // Inserisce in cima alla lista
+      guestbookEntries.unshift(newEntry);
+      renderEntries();
+
+      // Reset del form e notifica
+      document.getElementById('guestbookForm').reset();
+      showToast("Grazie! Il tuo messaggio è stato aggiunto al Libro degli Ospiti.");
+    }
+
+    // PREVENZIONE XSS
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // CARICAMENTO INIZIALE
+    window.onload = function() {
+      renderEntries();
+    };
+  </script>
+<!-- Widget di Traduzione Google (Nascosto) -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'it',
+      includedLanguages: 'en',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function translateToEnglish() {
+    // Carica dinamicamente lo script di Google Translate al click se non è già presente
+    if (!document.getElementById('google-translate-script')) {
+      var script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.type = 'text/javascript';
+      script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      document.body.appendChild(script);
+      
+      // Attende il caricamento ed esegue il cambio di lingua
+      var checkInterval = setInterval(function() {
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+          select.value = 'en';
+          select.dispatchEvent(new Event('change'));
+          clearInterval(checkInterval);
+        }
+      }, 300);
+    } else {
+      var select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = 'en';
+        select.dispatchEvent(new Event('change'));
+      }
+    }
+  }
+</script></body>
+</html>
